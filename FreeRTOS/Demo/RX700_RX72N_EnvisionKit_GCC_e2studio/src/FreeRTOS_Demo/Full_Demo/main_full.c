@@ -377,6 +377,18 @@ unsigned long ulErrorFound = pdFALSE;
 			by the comtest tasks has not been fitted). */
 			xDelayPeriod = mainERROR_CHECK_TASK_PERIOD;
 		}
+
+#if defined(OUTPUT_MESSAGE)
+		{
+#define CHECK_PASS_COUNT	10000
+			extern void vOutputString( const char * const pcMessage );
+			if( ulErrorFound != pdFALSE ) {
+				vOutputString("FAILED.\r\n");
+			} else if ( (ulRegTest1LoopCounter > CHECK_PASS_COUNT) && (ulRegTest2LoopCounter > CHECK_PASS_COUNT) ) {
+				vOutputString("PASSED.\r\n");
+			}
+		}
+#endif
 	}
 }
 /*-----------------------------------------------------------*/
